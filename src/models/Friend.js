@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
   const Friend = sequelize.define(
     'Friend',
     {
-      title: {
+      status: {
         type: DataTypes.ENUM(FRIEND_ACCEPTED, FRIEND_PENDING),
         allowNull: false,
         defaultValue: FRIEND_PENDING
