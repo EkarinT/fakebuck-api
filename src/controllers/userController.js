@@ -26,7 +26,6 @@ exports.updateUser = async (req, res, next) => {
         req.files.coverImage[0].path,
         coverImage ? cloudinary.getPublicId(coverImage) : undefined
       );
-
       updateValue.coverImage = secureUrl;
       fs.unlinkSync(req.files.coverImage[0].path);
     }
@@ -46,17 +45,17 @@ exports.updateUser = async (req, res, next) => {
 
 exports.getUserFriends = async (req, res, next) => {
   try {
-    const { id } = req.params;
+    const id = +req.params.id;
     const user = await User.findOne({
       where: { id },
       attributes: { exclude: 'password' }
     });
-    
+
     if (!user) {
       throw new AppError('user not found', 400);
     }
 
-    const friends = await friendService.findUserFriendByUserId(id);
+    const friends = await friendService.findUserFriendsByUserId(id);
     const statusWithMe = await friendService.findStatusWithMe(req.user.id, id);
     res.status(200).json({ user, friends, statusWithMe });
   } catch (err) {
