@@ -35,16 +35,9 @@ exports.createFriend = async (req, res, next) => {
         ]
       }
     });
-    console.log(friendId);
     if (existFriend) {
       throw new AppError('already friend or pending', 400);
     }
-    let obj = {
-      status: FRIEND_PENDING,
-      requesterId: req.user.id,
-      accepterId: +friendId
-    };
-    console.log(obj);
 
     await Friend.create({
       status: FRIEND_PENDING,

@@ -78,7 +78,7 @@ module.exports = (sequelize, DataTypes) => {
     User.hasMany(db.Friend, {
       as: 'Accepter',
       foreignKey: {
-        name: 'AccepterId',
+        name: 'accepterId',
         allowNull: false
       },
       onDelete: 'RESTRICT',
